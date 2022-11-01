@@ -35,11 +35,11 @@ class CDArray
         int Add(const T & t)
         {
             *( m_pData + m_Number) = t;
-            m_Number++;
+            ++m_Number;
 
             if (m_Number == m_Size)
             {
-                T * new_ptr = (T *) realloc(m_pData, sizeof(T) * m_Size * 2);
+                T * new_ptr = (T *)realloc(m_pData, sizeof(T) * m_Size * 2);
                 m_Size *= 2;
 
                 if (new_ptr == NULL)
@@ -56,7 +56,7 @@ class CDArray
             return m_Number;
         }
 
-        int Delete(int number)
+        int Delete(int number) // return a quantity of elements
         {
             T * for_delete;
 
@@ -81,32 +81,42 @@ class CDArray
             return m_Number;
         }
 
-        int Modify(int n, const T & t)
+        bool Modify(int n, const T & t) //
         {
-            *(m_pData + n) = t;
+            if (n >= m_Number || n < 0)
+            {
+                std::cout << "Error index of the element" << std::endl;
+                return false;
+            }
+            else
+            {
+                *(m_pData + n) = t;
 
-            return 0;
+                return 0;
+            }
         }
 
-        int Resize(int size)
+        void Resize(int size)
         {
             if (size == 0)
             {
-                std::free(m_pData);
+                free(m_pData);
                 m_pData = nullptr;
             }
             else
             {
-                void * mem = std::realloc(m_pData, size);
+                T * new_ptr = (T *)realloc(m_pData, sizeof(T) * size);
 
-                if (mem == NULL)
+                if (new_ptr == NULL)
                 {
                     std::cout << "Memory Reallocation Failed" << std::endl;
+                    free(m_pData);
                     std::exit(1);
                 }
                 else
                 {
-                    m_pData = static_cast<T *>(mem);
+                    m_pData = new_ptr;
+                    m_Size = size;
                 }
             }
         }

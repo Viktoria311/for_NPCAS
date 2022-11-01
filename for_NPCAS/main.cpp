@@ -35,13 +35,6 @@ int main()
         my_arr[i] = dist6(rng);
     }
 
-    std::cout << std::endl;
-    for(int i = 0; i < my_arr.Size(); ++i)
-    {
-        std::cout << my_arr[i] << ' ';
-    }
-    std::cout << std::endl;
-
     // sorting
     int helping_arr[max + 1] = {0};
 
@@ -62,12 +55,7 @@ int main()
         }
     }
 
-    std::cout << "sorted CDArray: "<< std::endl;
-    for(int i = 0; i < my_arr.Size(); ++i)
-    {
-        std::cout << my_arr[i] << ' ';
-    }
-    std::cout << std::endl;
+
 
     std::cout << "expectation: " << expectation(my_arr.Ptr(),my_arr.Size()) << std::endl;
     std::cout << "deviation: " << deviation(my_arr.Ptr(),my_arr.Size()) << std::endl;
